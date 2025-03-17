@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Track if animation is in progress
     let animationInProgress = false;
+    
+    // Keep track of current album art for comparison
+    let currentAlbumArt = DEFAULT_COVER;
 
     // Helper function to format time (mm:ss)
     function formatTime(seconds) {
@@ -110,15 +113,33 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log('Player initialized');
                 },
                 onTrackChange: (track) => {
-                    // Animate the artwork change when track changes
-                    if (!animationInProgress) {
-                        animateArtworkChange(track);
-                    }
+                    // Update track info
                     trackTitleEl.textContent = track.title;
                     trackArtistEl.textContent = track.artist;
+                    
+                    const newAlbumArt = track.cover || DEFAULT_COVER;
+                    
+                    // Only animate if the album art is actually different
+                    if (newAlbumArt !== currentAlbumArt) {
+                        if (!animationInProgress) {
+                            animateArtworkChange(track);
+                        }
+                    } else {
+                        // Just update the image without animation
+                        coverArtEl.src = newAlbumArt;
+                        nextCoverArtEl.src = newAlbumArt;
+                    }
+                    
+                    // Update current album art
+                    currentAlbumArt = newAlbumArt;
                 },
                 onTrackLoaded: (track) => {
                     if (!animationInProgress) {
+                        // Initialize the current album art on first load
+                        if (currentAlbumArt === DEFAULT_COVER) {
+                            currentAlbumArt = track.cover || DEFAULT_COVER;
+                        }
+                        
                         coverArtEl.src = track.cover || DEFAULT_COVER;
                         nextCoverArtEl.src = track.cover || DEFAULT_COVER;
                     }
