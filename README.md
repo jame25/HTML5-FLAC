@@ -1,8 +1,11 @@
-# FLAC Player
+# HTML5 FLAC Player
 
 A lightweight HTML5 web music player with FLAC support that runs in a Docker container. This project provides a clean, minimalist interface for playing FLAC audio files with metadata extraction.
 
-![FLAC Player Screenshot](screenshot.png)
+
+![html5flac03](https://github.com/user-attachments/assets/debd92aa-82f4-4677-98c6-f625fe30c1f8)
+
+
 
 ## Features
 
