@@ -9,6 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const trackTitleEl = document.getElementById('track-title');
     const trackArtistEl = document.getElementById('track-artist');
     const coverArtEl = document.getElementById('cover-art');
+    const nextCoverArtEl = document.getElementById('next-cover-art');
+    const artworkContainer = document.querySelector('.artwork-container');
+    const currentArt = document.querySelector('.current-art');
+    const nextArt = document.querySelector('.next-art');
 
     // Default cover image
     const DEFAULT_COVER = 'img/default-cover.svg';
@@ -18,6 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Player instance
     let player;
+    
+    // Track if animation is in progress
+    let animationInProgress = false;
 
     // Helper function to format time (mm:ss)
     function formatTime(seconds) {
@@ -103,10 +110,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log('Player initialized');
                 },
                 onTrackChange: (track) => {
-                    updateTrackInfo(track);
+                    // Animate the artwork change when track changes
+                    if (!animationInProgress) {
+                        animateArtworkChange(track);
+                    }
+                    trackTitleEl.textContent = track.title;
+                    trackArtistEl.textContent = track.artist;
                 },
                 onTrackLoaded: (track) => {
-                    updateTrackInfo(track);
+                    if (!animationInProgress) {
+                        coverArtEl.src = track.cover || DEFAULT_COVER;
+                        nextCoverArtEl.src = track.cover || DEFAULT_COVER;
+                    }
                 },
                 onPlay: () => {
                     playBtn.textContent = '⏸';
@@ -140,11 +155,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         prevBtn.addEventListener('click', () => {
-            player.prev();
+            if (!animationInProgress) {
+                player.prev();
+            }
         });
 
         nextBtn.addEventListener('click', () => {
-            player.next();
+            if (!animationInProgress) {
+                player.next();
+            }
         });
 
         // Volume control
@@ -165,13 +184,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Helper Functions
-    function updateTrackInfo(track) {
-        if (!track) return;
+    // Animate the artwork change
+    function animateArtworkChange(track) {
+        if (!track || animationInProgress) return;
         
-        trackTitleEl.textContent = track.title;
-        trackArtistEl.textContent = track.artist;
-        coverArtEl.src = track.cover || DEFAULT_COVER;
+        animationInProgress = true;
+        
+        // Set the next image
+        nextCoverArtEl.src = track.cover || DEFAULT_COVER;
+        
+        // Position the next image to come from the right
+        nextArt.style.transform = 'translateX(100%)';
+        
+        // Force a reflow to ensure styles are applied
+        void artworkContainer.offsetWidth;
+        
+        // Add the slide transition class
+        artworkContainer.classList.add('slide-transition');
+        
+        // Listen for transition end
+        const transitionEndHandler = () => {
+            // Update the current image after transition
+            coverArtEl.src = track.cover || DEFAULT_COVER;
+            
+            // Reset positions
+            artworkContainer.classList.remove('slide-transition');
+            currentArt.style.transform = '';
+            nextArt.style.transform = 'translateX(100%)';
+            
+            // Reset animation flag
+            animationInProgress = false;
+            
+            // Remove event listener
+            artworkContainer.removeEventListener('transitionend', transitionEndHandler);
+        };
+        
+        artworkContainer.addEventListener('transitionend', transitionEndHandler);
     }
 
     function updateVolumeIcon(volume) {
