@@ -163,28 +163,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 volumeSliderContainer.classList.remove('active');
             }
         });
-
-        // Keyboard controls
-        document.addEventListener('keydown', (e) => {
-            switch (e.code) {
-                case 'Space':
-                    e.preventDefault();
-                    player.togglePlay();
-                    break;
-                case 'ArrowLeft':
-                    player.seek(player.state.currentTime - 5);
-                    break;
-                case 'ArrowRight':
-                    player.seek(player.state.currentTime + 5);
-                    break;
-                case 'ArrowUp':
-                    player.setVolume(Math.min(player.audioElement.volume + 0.1, 1));
-                    break;
-                case 'ArrowDown':
-                    player.setVolume(Math.max(player.audioElement.volume - 0.1, 0));
-                    break;
-            }
-        });
     }
 
     // Helper Functions
