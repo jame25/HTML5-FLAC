@@ -1,0 +1,18 @@
+{
+  "name": "html5flac",
+  "version": "1.0.0",
+  "description": "HTML5 web music player with FLAC support",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "music-metadata": "^7.13.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+} 

@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  flac-player:
+    build: .
+    container_name: flac-player
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./public/music:/app/public/music
+    restart: unless-stopped 
