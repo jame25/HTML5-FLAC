@@ -60,6 +60,39 @@ body {
     position: relative;
 }
 
+.artwork-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.current-art, .next-art {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease;
+}
+
+.current-art {
+    transform: translateX(0);
+}
+
+.next-art {
+    transform: translateX(100%);
+}
+
+/* Animation - slide right to left */
+.slide-transition .current-art {
+    transform: translateX(-100%);
+}
+
+.slide-transition .next-art {
+    transform: translateX(0);
+}
+
 .player-artwork img {
     width: 100%;
     height: 100%;
@@ -79,6 +112,7 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
     opacity: 0;
     transition: opacity 0.3s ease;
+    z-index: 10;
 }
 
 .player-artwork:hover .artwork-controls {
