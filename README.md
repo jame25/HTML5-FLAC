@@ -128,4 +128,10 @@ If album art isn't displaying correctly:
 ## Acknowledgments
 
 - Uses HTML5 Audio API for FLAC playback
-- Uses [music-metadata](https://github.com/borewit/music-metadata) for reading FLAC tags 
+- Uses [music-metadata](https://github.com/borewit/music-metadata) for reading FLAC tags
+
+## Support:
+
+If you find this project helpful and would like to support its development, you can buy me a coffee on Ko-Fi:
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/jame25)
