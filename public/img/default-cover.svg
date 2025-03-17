@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  <rect width="300" height="300" fill="#2c3e50"/>
+  <circle cx="150" cy="100" r="50" fill="#3498db"/>
+  <path d="M100,150 L200,150 L200,220 Q150,250 100,220 Z" fill="#3498db"/>
+  <text x="150" y="270" font-family="Arial" font-size="24" fill="white" text-anchor="middle">FLAC Player</text>
+</svg> 
